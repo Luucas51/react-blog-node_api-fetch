@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import GetPostsId from '../GetPostsId/GetPostsId';
 import { useNavigate } from 'react-router-dom';
+import classes from './getposts.module.scss'
 
 const GetPosts = () => {
     
@@ -36,14 +37,15 @@ const GetPosts = () => {
     
 
     return (
-        <div>
+        <div className={classes.cardAllPosts}>
             {!loaded &&
                 <p>Loading...</p>
             }
             {loaded && postsData.map(post => {
                 return(
                     <div key={post._id}>
-                        <h2>{post.title}</h2>
+                        <h2>Titre : {post.title}</h2>
+                        <p>Description :</p>
                         <p>{post.description.slice(0, 35)}...</p>
                         <p>Par : {post.author}</p>
                         <p>Posté le : {post.date.slice(0, 10)}</p>

@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
+import classes from "./register.module.scss"
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
 
+    const [loaded, setLoaded] = useState(false)
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-
+    const [tokenGet, setTokenGet] =useState()
+    const navigate = useNavigate();
+    
     const data = {
         name: name,
         email: email,
         password: password
-      };
+    };
       
       const registerFetchRequest = () => {
           fetch('http://localhost:8000/api/user/register', {
@@ -21,23 +25,28 @@ const Register = () => {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
-          })
-          .then((response) => response.json())
+        })
+        .then((response) => response.json())
           .then((response) => {
               if(response.error) {
                   console.log(response.message[0].messages[0].message);
-              } else {
+                } else {
                   console.log(response)
+                  Cookies.set('token', response.token)
+                  Cookies.get('token')
 
               }
-          })
+            })
 
       }
 
+      
+            
+    
 
     return (
-        <div>
-            <form action="post">
+        <div >
+            <form className={classes.container} action="post">
                 <label htmlFor="input-username-register">Name</label>
                 <input type="text" value={name} onChange={(e) => setName(e.target.value)} id='input-username-register' />
 
