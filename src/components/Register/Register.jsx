@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import classes from "./register.module.scss"
+import { userError, userLogin } from '../../redux/stateUser/userAction';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
@@ -9,8 +11,23 @@ const Register = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [tokenGet, setTokenGet] =useState()
+    const [tokenGet, setTokenGet] =useState();
     const navigate = useNavigate();
+
+    const isConnected = useSelector(state => state.connected);
+    const registerError = useSelector(state => state.error);
+
+    const dispatch = useDispatch();
+
+    const changeConnectedStatus = () =>  {
+      dispatch(userLogin())
+    }
+
+
+    useEffect(() => {
+        console.log(isConnected)
+    }, [isConnected])
+
     
     const data = {
         name: name,
@@ -33,8 +50,9 @@ const Register = () => {
                 } else {
                   console.log(response)
                   Cookies.set('token', response.token)
-                  Cookies.get('token')
-
+                  Cookies.set('id', response.user._id)
+                  navigate('/')
+                  changeConnectedStatus() 
               }
             })
 

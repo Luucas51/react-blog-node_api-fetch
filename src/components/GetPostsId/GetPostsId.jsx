@@ -29,7 +29,7 @@ const GetPostsId = () => {
     if(loaded){
         return(
             <div>
-                    <AiOutlineArrowLeft className={classes.arrowBack} onClick={() => navigate(-1)}/>
+                <AiOutlineArrowLeft className={classes.arrowBack} onClick={() => navigate(-1)}/>
                 <div className={classes.container}>
                     <h1>Titre : {postData.title}</h1>
                     <h3>Description :</h3>
@@ -42,7 +42,7 @@ const GetPostsId = () => {
     } else {
         return (
             <div>
-                
+                <p>Loading...</p>
             </div>
         );
     }

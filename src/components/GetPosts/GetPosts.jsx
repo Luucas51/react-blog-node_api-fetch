@@ -38,21 +38,23 @@ const GetPosts = () => {
 
     return (
         <div className={classes.cardAllPosts}>
-            {!loaded &&
-                <p>Loading...</p>
-            }
-            {loaded && postsData.map(post => {
-                return(
-                    <div key={post._id}>
-                        <h2>Titre : {post.title}</h2>
-                        <p>Description :</p>
-                        <p>{post.description.slice(0, 35)}...</p>
-                        <p>Par : {post.author}</p>
-                        <p>Posté le : {post.date.slice(0, 10)}</p>
-                        <button onClick={() => handleClick(post._id)}>Voir</button>
-                    </div>
-                )
-            })}
+            <div className='card'>
+                {!loaded &&
+                    <p>Loading...</p>
+                }
+                {loaded && postsData.map(post => {
+                    return(
+                        <div key={post._id}>
+                            <h2>Titre : {post.title}</h2>
+                            <p>Description :</p>
+                            <p>{post.description.slice(0, 35)}...</p>
+                            <p>Par : {post.author}</p>
+                            <p>Posté le : {post.date.slice(0, 10)}</p>
+                            <button onClick={() => handleClick(post._id)}>Voir</button>
+                        </div>
+                    )
+                })}
+            </div>
         </div>
     );
 };
